@@ -1,8 +1,60 @@
-<br>
+{% extends 'base.html' %}
+{% load static %}
 
-<li>{{ posts.titulo }}</li>
-<li>{{ posts.subtitulo }}</li>
-<li>{{ posts.categoria }}</li>
+{% block contenido %}
+
+<center>
+<div class=" container-fluid" style="margin:50px;">
+<table>{{ posts.titulo }}</table>
+<table>{{ posts.subtitulo }}</table>
+<table>{{ posts.categoria }}</table>
 <br>
-<li>{{ posts.texto }}</li>
+<table>{{ posts.texto }}</table>
 <img src="{{ posts.imagen.url }}" alt="" width="300" height="250">
+</div>
+</center>
+
+<center></center>
+
+<div class="container-fluid" style="margin-bottom: 20px;">
+</div>
+
+<div class="container-fluid" style="margin-bottom: 20px;">
+</div>
+
+<div class="container-fluid" style="margin-bottom: 20px;">
+{% for comentario in comentarios %}
+    <table class="table">
+        <ul class="list-unstyled d-flex justify-content-between mb-4">
+            <li>{{ comentario.usuario }}</li>
+            <li>{{ comentario.fecha }}</li>
+        </ul>
+        <p>{{ comentario.texto }}</p>
+    </table>
+{% empty %}
+    <p>No hay comentarios. Puedes ser el primero en comentar!</p>
+{% endfor %}
+</div>
+
+<div class="container-fluid" style="margin-bottom: 180px;">
+<form method="POST" style="margin-bottom: 100px; margin-top: 100px;">
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+        <h2>Deja tu comentario</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Comentar">
+        </form>
+    {% else %}
+        <h2>Debes iniciar sesión o registrarte para comentar</h2>
+        <a class="btn btn-success btn-lg" href="{% url 'apps.usuario:login' %}?next={{ request.path }}#comentario">Iniciar sesión</a>
+        <input type="hidden" name="next" value="{{ request.path }}">
+    {% endif %}
+</form>
+</div>
+
+</center>
+
+
+{% endblock %}

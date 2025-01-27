@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 class ContactoUsuario (CreateView):
     template_name = 'contacto/contacto.html'
     form_class = ContactoForm
-    success_url = reverse_lazy ('apps.contacto: contacto')
+    success_url = reverse_lazy ('contacto')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
