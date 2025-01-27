@@ -12,8 +12,9 @@
         <li>{{ i.titulo }}</li>
         <li>{{ i.subtitulo }}</li>
         <li>{{ i.categoria }}</li>
+
+        <a class='btn btn-primary' href="{% url 'apps.posts:post_individual' i.id %}"> Ingresar al post</a>
     
-         <button class ='btn btn-primary' id="boton_post" href="{% url 'apps.posts:post_individual' i.id %}"> Ingresar al post</button>
         <br>
        
 
