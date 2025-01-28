@@ -5,6 +5,9 @@ from django.views.generic import CreateView
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.auth.views import PasswordResetDoneView
+from django.contrib.auth.models import Group
 
 # Create your views here.
 
@@ -13,8 +16,10 @@ class RegistrarUsuario (CreateView):
     form_class = RegistroUsuarioForm
 
     def form_valid(self, form):
+        response = super().form_valid(form)
         messages.success(self.request, 'Registro exitoso.Por favor, inicia sesión.')
-        form.save()
+        group = Group.objects.get(name='Registrado')
+        self.object.groups.add(group)
 
         return redirect('apps.usuario:registrar')
     
@@ -34,3 +39,4 @@ class LogoutUsuario (LogoutView):
         messages.success(self.request, 'Logout exitoso')
 
         return reverse('apps.usuario:logout')
+    

@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from .models import Post, Comentario
-from .forms import ComentarioForm
+from .models import Post, Comentario, Categoria
+from .forms import ComentarioForm, CrearPostForm, NuevaCategoriaForm
 from django.views.generic import ListView, DetailView
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -53,6 +54,25 @@ class ComentarioCreateView (LoginRequiredMixin, CreateView):
         form.instance.usuario = self.request.user
         form.instance.posts_id = self.kwargs['posts_id']
         return super().form_valid(form)
+    
+
+class PostCreateView(CreateView):
+    model = Post
+    form_class = CrearPostForm
+    template_name = 'posts/crear_post.html'
+    success_url = reverse_lazy('apps.posts:posts')
+
+class CategoriaCreateView(CreateView):
+    model = Categoria
+    form_class = NuevaCategoriaForm
+    template_name = 'posts/crear_categoria.html'
+
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        if next_url:
+            return next_url
+        else:
+            return reverse_lazy('apps.posts:post_create')
 
 
 
