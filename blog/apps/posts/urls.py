@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import PostListView, PostDetailView, PostCreateView, CategoriaCreateView
 
+
 app_name = 'apps.posts'
 
 
