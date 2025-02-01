@@ -92,3 +92,11 @@ class PostUpdateView ( UpdateView):
     form_class = CrearPostForm
     template_name = 'posts/modificar_post.html'
     success_url = reverse_lazy ('apps.posts:posts')
+
+
+class PostDeleteView (DeleteView):
+    model = Post
+    template_name = 'posts/eliminar_post.html'
+    succes_url = reverse_lazy ('apps.post:posts')
+
+    
