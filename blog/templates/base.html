@@ -1,5 +1,7 @@
 {% load static %}
 
+{% load colaborador_tags %}
+
 <!doctype html>
 <html lang="es-ar">
     <head>
@@ -39,9 +41,24 @@
                 <form action="{% url 'apps.usuario:logout' %}" method="post">
                     {%csrf_token%}
 
-                    <button class="nav-link" type="sumit">Cerrar sesión</button>
+                    <button class="nav-link" type="sumit">{{ user.username }}: logout</button>
                 </form>
-                <!-- <a class="nav-link" href="{% url 'apps.usuario:logout' %}">Logout</a> -->
+                <div class="dropdown-content">
+                    <table>
+                      <tr>
+                        {% if user.is_superuser or request.user|has_group:"Colaborador" %}
+                          <td><a href="{% url 'apps.usuario:usuario_list' %}">Lista de usuarios</a></td>
+                        {% endif %}
+                      </tr>
+                      <tr>
+                        <td><a href="#">Lista de categorías</a></td>
+                      </tr>
+                      <tr>
+                        <td><a href="#">Lista de posts</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                
                 {% else %}
                 <a class="nav-link" href="{% url 'login' %}">Login</a>
                 {% endif %}

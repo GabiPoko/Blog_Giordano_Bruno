@@ -2,7 +2,12 @@
 
 {% block contenido %}
 
+{% load colaborador_tags %}
+
+
 <center>
+{% if user.is_superuser or request.user|has_group:"Colaborador" %}
+
     <div class="container-fluid" style="margin: 200px;">
         <div class="container-fluid" style="margin-top: 300px;">
             <a id="boton_post" href="{% url 'apps.posts:crear_categoria' %}">Crear nueva categoría</a>
@@ -15,6 +20,11 @@
             <input type="submit" value="Guardar">
         </form>
     </div>
+{% else %}
+    <div class="container-fluid" style="margin: 300px;">
+        <h1> Solo usuarios con permiso pueden acceder a esta pagina.</h1>
+    </div>
+{% endif %}
 </center>
 
 {% endblock %}

@@ -22,6 +22,7 @@ class Post(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, default='Sin categoría')
     imagen = models.ImageField(null=True, blank=True, upload_to='media', default='static/post_default.png')
     publicado = models.DateTimeField(default=timezone.now)
+    autor = models.ForeignKey (settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null= True)
 
 
     class Meta:
