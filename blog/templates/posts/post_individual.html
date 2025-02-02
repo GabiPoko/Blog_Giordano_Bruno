@@ -5,71 +5,39 @@
 {% block contenido %}
 
 
-
-
-
 <center>
     
-<div class=" container-fluid" style="margin:50px;">
-<table>{{ posts.titulo }}</table>
-<table>{{ posts.subtitulo }}</table>
-<table>{{ posts.categoria }}</table>
-<br>
-<table>{{ posts.texto }}</table>
-<img src="{{ posts.imagen.url }}" alt="" width="300" height="250">
-
-{% if user.is_superuser or request.user|has_group:"Colaborador" %}
-<div class="container-fluid" style="margin-top: 300px;">
-    <a id="boton_post" href="{% url 'apps.posts:post_update' pk=posts.id %}">Modificar Post</a>
-</div>
-<div class="container-fluid" style="margin-top: 300px;">
-    <a id="boton post" href="{% url 'apps.posts:post_delete' pk=posts.pk %}">Eliminar Post</a>
-  </div>
-{% endif %}
-
-</div>
-</center>
-
-
-<div class="container-fluid" style="margin-bottom: 20px;">
-</div>
-
-<div class="container-fluid" style="margin-bottom: 20px;">
-</div>
-
-<div class="container-fluid" style="margin-bottom: 20px;">
-{% for comentario in comentarios %}
-    <table class="table">
-        <ul class="list-unstyled d-flex justify-content-between mb-4">
-            <li>{{ comentario.usuario }}</li>
-            <li>{{ comentario.fecha }}</li>
-        </ul>
-        <p>{{ comentario.texto }}</p>
-    </table>
-{% empty %}
-    <p>No hay comentarios. Puedes ser el primero en comentar!</p>
-{% endfor %}
-</div>
-
-<div class="container-fluid" style="margin-bottom: 180px;">
-<form method="POST" style="margin-bottom: 100px; margin-top: 100px;">
-    {% csrf_token %}
-    {% if user.is_authenticated %}
-        <h2>Deja tu comentario</h2>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Comentar">
-        </form>
+<div class=" container-fluid" style="margin:200px;">
+    <li>{{ posts.titulo }}</li>
+    <li>{{ posts.subtitulo }}</li>
+    
+    <li>{{ posts.categoria }}</li>
+    <br>
+    
+    <li>{{ posts.texto }}</li>
+    {% if posts.imagen %}
+    
+    <img src="{{ posts.imagen.url }}" alt="" style="width: 300px; height: 200px;">
     {% else %}
-        <h2>Debes iniciar sesión o registrarte para comentar</h2>
-        <a class="btn btn-success btn-lg" href="{% url 'apps.usuario:login' %}?next={{ request.path }}#comentario">Iniciar sesión</a>
-        <input type="hidden" name="next" value="{{ request.path }}">
+    
+    <p>No hay imagen disponible</p>
     {% endif %}
-</form>
-</div>
-
-</center>
-
-
-{% endblock %}
+    
+    {% if user.is_superuser or request.user|has_group:"Colaborador" %}
+    <div class="container-fluid" style="margin-top: 300px;">
+    
+    </div>
+    <a id="boton_post" href="{% url 'apps.posts:post_update' pk=posts.id %}">Modificar Post</a>
+    
+    <div class="container-fluid" style="margin-top: 300px;">
+        <a id="boton_post" href="{% url 'apps.posts:post_delete' pk=posts.pk %}">Eliminar Post</a>
+    
+    </div>
+    {% endif %}
+    
+    </div>
+    
+    {% include 'comentario/crear_comentario.html' %}
+    
+    </center>
+    {% endblock %}

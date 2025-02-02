@@ -43,4 +43,3 @@ class LogoutUsuario (LogoutView):
 
         return reverse('apps.usuario:logout')
     
-
