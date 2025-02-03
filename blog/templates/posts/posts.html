@@ -4,6 +4,19 @@
 
 
 {% block contenido %}
+
+
+<div> <a href="?ordenar=fecha"><button>Ordenar por fecha</button></a>
+    <a href="?ordenar=alfabetico"><button>Ordenar alfabeticamente</button></a>
+</div>
+<div>
+    <a href="{% url 'apps.posts:posts' %}">Todas</a>
+    {% for categoria in categorias %}
+
+    <a href="?categoria={{categoria.nombre}}"> {{categoria.nombre}}</a>
+
+    {% endfor %}
+</div>
     
         
 
