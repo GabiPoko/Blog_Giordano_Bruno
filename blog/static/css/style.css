@@ -1,0 +1,36 @@
+
+.navbar-brand .rounded-circle {
+    width: 300px; 
+    height: 100px; 
+    border-radius: 100%; /* Hace la imagen redonda */
+    border: 2px solid #fff; /* Crea un borde blanco */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Agrega una sombra */
+    object-fit: cover; /* Evita que la imagen se distorsione */
+  }
+
+
+.navbar-nav .nav-item {
+    font-weight: bold;
+    color: rgb(53, 48, 48);
+    text-decoration: ;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Sombra suave */
+    margin: 0 15px;
+}
+
+.display-4 {
+    color: white;
+    font-family: 'Arial', sans-serif;
+}
+
+.lead {
+    color: white;
+    font-family: 'Verdana', sans-serif;
+}
+
+h2 {
+    color: white;
+    font-family: 'Georgia', serif;
+}
+
+
+
