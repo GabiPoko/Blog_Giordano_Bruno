@@ -32,5 +32,13 @@ h2 {
     font-family: 'Georgia', serif;
 }
 
+.navbar-brand, .navbar-text {
+    padding-top: 15px; 
+  }
 
 
+.navbar-text .ml-auto {
+    font-family: 'Bangers', cursive;
+    font-size: 1.2rem; /* Ajusta el tamaño */
+    font-weight: 400; /* Ajusta el grosor */
+  }
