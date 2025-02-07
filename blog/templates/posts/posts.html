@@ -6,11 +6,12 @@
 {% block contenido %}
 
 
-<div> <a href="?ordenar=fecha"><button>Ordenar por fecha</button></a>
-    <a href="?ordenar=alfabetico"><button>Ordenar alfabeticamente</button></a>
+<div> <a href="?ordenar=fecha"><button class="botton_fecha">Ordenar por fecha</button></a>
+    <a href="?ordenar=alfabetico"><button class="botton_fecha">Ordenar alfabeticamente</button></a>
 </div>
-<div>
-    <a href="{% url 'apps.posts:posts' %}">Todas</a>
+
+<div class="contenedor-categorias">
+    <a href="{% url 'apps.posts:posts' %}">Todas las categorias:</a>
     {% for categoria in categorias %}
 
     <a href="?categoria={{categoria.nombre}}"> {{categoria.nombre}}</a>
@@ -36,9 +37,28 @@
 
     {% for i in posts %}
 
-        <br>
+    <div class="container">
+        <div class="row">
+            {% for i in posts %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="{{ i.imagen.url }}" class="card-img-top" alt="Imagen de noticia">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.titulo }}</h5>
+                        <p class="card-text">{{ i.texto | truncatechars:45}} <a href="{% url 'apps.posts:post_individual' i.id %}">seguir leyendo...</a></p>
+                        <p class="card-text"><small class="text-muted">{{ i.categoria }}</small></p>
+                        <a href="?autor={{i.autor}}"><small>{{i.autor}}</small></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+        <!-- <br>
         <li>{{ i.titulo }}</li>
         <li>{{ i.subtitulo }}</li>
+        <li>{{ i.texto| truncatechars:50 }}</li>
         <li>{{ i.categoria }}</li>
 
         <a class='btn btn-primary' href="{% url 'apps.posts:post_individual' i.id %}"> Ingresar al post</a>
@@ -47,7 +67,7 @@
        
 
         {% empty %}
-        <h1>No hay registro</h1>
+        <h1>No hay registro</h1> -->
 
     {% endfor %}
 

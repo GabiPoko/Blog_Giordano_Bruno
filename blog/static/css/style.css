@@ -37,8 +37,52 @@ h2 {
   }
 
 
-.navbar-text .ml-auto {
-    font-family: 'Bangers', cursive;
-    font-size: 1.2rem; /* Ajusta el tamaño */
-    font-weight: 400; /* Ajusta el grosor */
+  .botton_fecha {
+    background-color: #353836; 
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+    margin-left: 20px;
+  }
+  
+  .botton_fecha:hover {
+    background-color: #545a55; /* Verde más oscuro al pasar el mouse */
+  }
+
+  .contenedor-categorias { /* Un contenedor para los elementos */
+    display: flex; /* Para usar flexbox */
+    align-items: center; /* Para alinear verticalmente */
+  }
+  
+  .contenedor-categorias h5, .contenedor-categorias a {
+    display: inline-block; /* Para que se muestren uno al lado del otro */
+    margin-right: 15px; /* Espacio entre los elementos */
+  }
+
+  .contenedor-categorias a {
+    margin-top: -20px;
+    text-decoration: none;
+    border-radius: 10px;
+    color: rgb(39, 37, 37);
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  
+  .contenedor-categorias a:hover {
+    background-color: #cbf3d3;
+  }
+
+  .container-fluid .container { /* Centra los elementos dentro de .container */
+    text-align: left;
   }
