@@ -6,73 +6,51 @@
 {% block contenido %}
 
 
-<div> <a href="?ordenar=fecha"><button class="botton_fecha">Ordenar por fecha</button></a>
-    <a href="?ordenar=alfabetico"><button class="botton_fecha">Ordenar alfabeticamente</button></a>
+<!-- Filtros de orden y categorías -->
+<div class="container mt-3 text-center">
+    <div class="row justify-content-center">
+        <div class="col-md-auto">
+            <a href="?ordenar=fecha"><button class="btn btn-primary">Ordenar por fecha</button></a>
+            <a href="?ordenar=alfabetico"><button class="btn btn-secondary">Ordenar alfabéticamente</button></a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-auto">
+            <div class="contenedor-categorias">
+                <a href="{% url 'apps.posts:posts' %}" class="btn btn-outline-dark">Todas las categorías</a>
+                {% for categoria in categorias %}
+                    <a href="?categoria={{categoria.nombre}}" class="btn btn-outline-dark">{{categoria.nombre}}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="contenedor-categorias">
-    <a href="{% url 'apps.posts:posts' %}">Todas las categorias:</a>
-    {% for categoria in categorias %}
-
-    <a href="?categoria={{categoria.nombre}}"> {{categoria.nombre}}</a>
-
-    {% endfor %}
-</div>
-    
-        
-
-<div class= 'container-fluid' style="margin: 200px;">
-   
-
-{% if user.is_superuser or request.user|has_group:"Colaborador" %}
-<div class="container-fluid" style="margin-top: 300px;">
-    <a id="boton_post" href="{% url 'apps.posts:crear_post' %}">Crear nuevo post</a>
-</div>
-
-{% endif %}
-    
-    <!-- <div class="container-fluid" style="margin-top: 300px;">
-        <a id="boton_post" href="{% url 'apps.posts:crear_post' %}">Crear nuevo post</a>
-    </div> -->
-
-    {% for i in posts %}
-
+<!-- Contenedor principal de los posts -->
+<div class="container-fluid d-flex justify-content-center align-items-center" style="min-height: 100vh; width: 100vw; margin-top: 20px;">
     <div class="container">
         <div class="row">
             {% for i in posts %}
-            <div class="col-md-4">
-                <div class="card mb-4">
+            <div class="col-md-4 mb-4">
+                <div class="card mb-4 h-100">
                     <img src="{{ i.imagen.url }}" class="card-img-top" alt="Imagen de noticia">
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ i.titulo }}</h5>
-                        <p class="card-text">{{ i.texto | truncatechars:45}} <a href="{% url 'apps.posts:post_individual' i.id %}">seguir leyendo...</a></p>
+                        <p class="card-text flex-grow-1">{{ i.texto | truncatechars:45 }} 
+                            <a href="{% url 'apps.posts:post_individual' i.id %}">seguir leyendo...</a>
+                        </p>
                         <p class="card-text"><small class="text-muted">{{ i.categoria }}</small></p>
                         <a href="?autor={{i.autor}}"><small>{{i.autor}}</small></a>
                     </div>
                 </div>
             </div>
+            {% empty %}
+            <h1 class="text-center w-100">No hay registros</h1>
             {% endfor %}
         </div>
     </div>
-
-        <!-- <br>
-        <li>{{ i.titulo }}</li>
-        <li>{{ i.subtitulo }}</li>
-        <li>{{ i.texto| truncatechars:50 }}</li>
-        <li>{{ i.categoria }}</li>
-
-        <a class='btn btn-primary' href="{% url 'apps.posts:post_individual' i.id %}"> Ingresar al post</a>
-    
-        <br>
-       
-
-        {% empty %}
-        <h1>No hay registro</h1> -->
-
-    {% endfor %}
-
 </div>
-
 
 
 
